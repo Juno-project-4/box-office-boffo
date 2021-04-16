@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import firebase from "./firebase.js";
+import results from "./resultsExample.js";
 
 function App() {
     // useEffect(() => {
@@ -58,14 +59,14 @@ function App() {
             const url = new URL(searchUrl);
             url.search = new URLSearchParams({
                 api_key: apiKey,
-                query: "love",
+                query: "joy",
                 primary_release_year: year,
                 page: page,
             });
             return url;
         };
         // Call the API to get the data with default page 1
-        fetch(movieSearch(2021, 1))
+        fetch(movieSearch(2020, 1))
             .then((res) => {
                 return res.json();
             })
@@ -74,7 +75,7 @@ function App() {
                 const arrayOfAllPages = [];
                 // Get the total pages from the first API to loop each page of data
                 for (let i = 1; i <= jsonResponse.total_pages; i++) {
-                    fetch(movieSearch(2021, i))
+                    fetch(movieSearch(2020, i))
                         .then((res) => {
                             return res.json();
                         })
@@ -120,11 +121,19 @@ function App() {
                                         });
                                     });
                                 };
-                                selectYear(2021);
+                                selectYear(2020);
                             }
                         });
                 }
             });
+    }, []);
+
+    useEffect(() => {
+        // Set the data into Firebase
+        const dbf = firebase.database().ref("test");
+        dbf.set(results);
+        // Filter the number of results up to 10 items
+        dbf.limitToFirst(10).on("value", (res) => console.log(res.val()));
     }, []);
 
     return <div></div>;
