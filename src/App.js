@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
+import firebase from "./firebase.js";
 
 function App() {
     // useEffect(() => {
@@ -64,7 +65,7 @@ function App() {
             return url;
         };
         // Call the API to get the data with default page 1
-        fetch(movieSearch(1998, 1))
+        fetch(movieSearch(2021, 1))
             .then((res) => {
                 return res.json();
             })
@@ -73,7 +74,7 @@ function App() {
                 const arrayOfAllPages = [];
                 // Get the total pages from the first API to loop each page of data
                 for (let i = 1; i <= jsonResponse.total_pages; i++) {
-                    fetch(movieSearch(1998, i))
+                    fetch(movieSearch(2021, i))
                         .then((res) => {
                             return res.json();
                         })
@@ -90,6 +91,7 @@ function App() {
                                     arrayOfAllPages.map((array) => {
                                         // filter the array to get only the movies in the summer period of that year
                                         array.filter((dataObj) => {
+                                            const now = new Date();
                                             const releasedDate = new Date(
                                                 dataObj.release_date
                                             );
@@ -105,13 +107,20 @@ function App() {
                                                 releasedDate <= newReleasedDate2
                                             ) {
                                                 console.log(
-                                                    dataObj.release_date
+                                                    `Title: ${dataObj.title}`,
+                                                    `- ${
+                                                        releasedDate < now
+                                                            ? "Released"
+                                                            : "Release"
+                                                    } date: ${
+                                                        dataObj.release_date
+                                                    }`
                                                 );
                                             }
                                         });
                                     });
                                 };
-                                selectYear(1998);
+                                selectYear(2021);
                             }
                         });
                 }
