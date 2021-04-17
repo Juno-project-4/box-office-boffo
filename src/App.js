@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import firebase from "./firebase.js";
 import results from "./resultsExample.js";
@@ -128,15 +128,65 @@ function App() {
             });
     }, []);
 
+    const [list, setList] = useState([]);
+
+    const handleAdd = () => {
+        const dbRef = firebase.database().ref();
+        results.map((result) => {
+            const movie = {
+                title: result.title,
+                release_date: result.release_date,
+                rate: result.vote_average,
+            };
+            dbRef.push(movie);
+        });
+    };
+
+    const handleRemove = (key) => {
+        const dbRef = firebase.database().ref();
+        dbRef.child(key).remove();
+        // Send off a request to firebase  to remove a book with specific id
+    };
+
     useEffect(() => {
-        // Set the data into Firebase
-        const dbf = firebase.database().ref("test");
-        dbf.set(results);
-        // Filter the number of results up to 10 items
-        dbf.limitToFirst(10).on("value", (res) => console.log(res.val()));
+        // Here we create a variable that holds a reference to our database
+        const dbRef = firebase.database().ref();
+        dbRef.on("value", (response) => {
+            //  Create a new variable to store the new state that we want to introduce to out app
+            const newState = [];
+            // store the response from our database
+            const data = response.val();
+            for (let key in data) {
+                newState.push({
+                    key: key,
+                    movie: data[key],
+                });
+            }
+            setList(newState);
+        });
     }, []);
 
-    return <div></div>;
+    return (
+        <div>
+            <ul>
+                {list.map((mov) => {
+                    return (
+                        <li key={mov.key}>
+                            <p>{mov.movie.title}</p>
+                            <button
+                                onClick={() => {
+                                    handleRemove(mov.key);
+                                }}
+                            >
+                                Remove
+                            </button>
+                        </li>
+                    );
+                })}
+            </ul>
+            <button onClick={handleAdd}>Add</button>
+        </div>
+    );
 }
 
 export default App;
