@@ -43,6 +43,7 @@ const MovieSearch = () => {
         }
         setNumOfPages(numArray);
       });
+    setIsDisplayed(false);
   };
 
   const getPage = (pageNum) => {
