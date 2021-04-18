@@ -6,6 +6,7 @@ import resultsExample from "./resultsExample.js";
 function App() {
     const [list, setList] = useState([]);
     const [movies, setMovies] = useState([]);
+    const [savedList, setSavedList] = useState(true);
 
     useEffect(() => {
         setMovies(resultsExample);
@@ -23,6 +24,11 @@ function App() {
     const handleRemove = (key) => {
         const dbRef = firebase.database().ref();
         dbRef.child(key).remove();
+    };
+
+    const handleSave = () => {
+        console.log("worked");
+        if (savedList) setSavedList(!savedList);
     };
 
     useEffect(() => {
@@ -65,20 +71,40 @@ function App() {
             {list.length !== 0 ? (
                 <div className="prediction-container">
                     <h2>Prediction List of Summer Movie</h2>
-                    <ul className="prediction-list">
-                        {list.map((mov) => {
-                            return (
-                                <li key={mov.key}>
-                                    <p>{mov.movie.title}</p>
-                                    <button
-                                        onClick={() => handleRemove(mov.key)}
-                                    >
-                                        Remove
-                                    </button>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                    {savedList ? (
+                        <>
+                            <ul className="prediction-list">
+                                {list.map((mov) => {
+                                    return (
+                                        <li key={mov.key}>
+                                            <p>{mov.movie.title}</p>
+                                            <button
+                                                onClick={() =>
+                                                    handleRemove(mov.key)
+                                                }
+                                            >
+                                                Remove
+                                            </button>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                            <button onClick={handleSave}>Save the list!</button>
+                        </>
+                    ) : (
+                        <>
+                            <ul className="prediction-list">
+                                {list.map((mov) => {
+                                    return (
+                                        <li key={mov.key}>
+                                            <p>{mov.movie.title}</p>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                            <button>Delete List!</button>
+                        </>
+                    )}
                 </div>
             ) : null}
         </div>
