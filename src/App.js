@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react";
 import "./App.css";
+import { useEffect, useState } from "react";
+
+// Christie Components
 import SearchedMovies from "./SearchedMovies.js";
 import SelectedList from "./SelectedList";
 import PredictedLists from "./PredictedLists";
 import firebase from "./firebase.js";
 // Imported fake data to test the app
 import resultsExample from "./resultsExample.js";
+
+// Kevin Component
+import MovieSearch from "./MovieSearch";
 
 function App() {
     // Updating the list of searched movies
@@ -90,6 +95,10 @@ function App() {
 
     return (
         <div>
+            {/* Kevin Comonent */}
+            <MovieSearch />
+
+            {/* Christie Components */}
             <SearchedMovies movies={movies} handleAdd={handleAdd} />
             <SelectedList
                 list={list}
@@ -97,9 +106,11 @@ function App() {
                 handleRemove={handleRemove}
                 handleSave={handleSave}
             />
-            <PredictedLists predictedLists={predictedLists} handleDelete={handleDelete}/>
+            <PredictedLists
+                predictedLists={predictedLists}
+                handleDelete={handleDelete}
+            />
         </div>
     );
 }
-
 export default App;
