@@ -1,0 +1,13 @@
+.search-container,
+.prediction-container {
+    margin: 40px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.search-list li,
+.prediction-list li {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
