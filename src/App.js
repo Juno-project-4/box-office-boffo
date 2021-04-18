@@ -1,8 +1,17 @@
-import "./App.css";
-import Search from "./Search";
-import Data from "./Data";
-import { useState } from "react";
 
-function App() {}
+import './App.css';
+import {useEffect, useState} from 'react';
+
+import MovieSearch from './MovieSearch';
+
+function App() {
+
+
+  return (
+    <div>
+      <MovieSearch />
+    </div>
+  );
+}
 
 export default App;
