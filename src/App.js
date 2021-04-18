@@ -1,17 +1,17 @@
+import "./App.css";
 
-import './App.css';
-import {useEffect, useState} from 'react';
+// Christie Components
+import FirebaseLists from "./FirebaseLists";
 
-import MovieSearch from './MovieSearch';
+// Kevin Component
+import MovieSearch from "./MovieSearch";
 
 function App() {
-
-
-  return (
-    <div>
-      <MovieSearch />
-    </div>
-  );
+    return (
+        <div>
+            <MovieSearch />
+            <FirebaseLists />
+        </div>
+    );
 }
-
 export default App;
