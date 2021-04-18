@@ -38,7 +38,7 @@ function Search(props) {
       <div className="wrapper option-container">
         <form
           onSubmit={(e) => {
-            props.filter(e, userYear, textInput);
+            props.apiCall(e, userYear, textInput);
           }}
           className="search-form"
         >
