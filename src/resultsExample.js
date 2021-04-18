@@ -1,4 +1,4 @@
-const results = [
+const resultsExample = [
     {
         adult: false,
         backdrop_path: "/aC7PdiGK6xQhUtZ8McO2sw8Xkp3.jpg",
@@ -339,4 +339,4 @@ const results = [
     },
 ];
 
-export default results;
+export default resultsExample;
