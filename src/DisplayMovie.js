@@ -1,11 +1,26 @@
 const DisplayMovie = (props) => {
-    return (
-        <div>
-            {props.movie.map((title) => {
-                return <p>{title.title}</p>;
-            })}
-        </div>
-    );
+
+  return (
+    <div>
+      {props.firstSet.map((e) => {
+        return (
+          <div>
+            {props.display === true ? (
+              <p className="hidden">{e.title}</p>
+            ) : (
+              <p>{e.title}</p>
+            )}
+          </div>
+        );
+      })}
+      <div>
+        {props.movie.map((titles) => {
+          return <h4>{titles.title}</h4>;
+        })}
+      </div>
+    </div>
+  );
+
 };
 
 export default DisplayMovie;
