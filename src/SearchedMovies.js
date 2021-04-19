@@ -5,13 +5,12 @@ const SearchedMovies = ({ movies, handleAdd, firstSet, display }) => {
       <ul className="search-list">
         {firstSet.map((result, index) => {
           return (
-            <div>
+            <div className="column">
               {display === false ? null : (
                 <li key={index}>
                   <p>{result.title}</p>
-                  <div>
-                    <button onClick={() => handleAdd(result)}>Add</button>
-                  </div>
+
+                  <button onClick={() => handleAdd(result)}>Add</button>
                 </li>
               )}
             </div>
@@ -22,7 +21,7 @@ const SearchedMovies = ({ movies, handleAdd, firstSet, display }) => {
       <ul className="search-list">
         {movies.map((result, index) => {
           return (
-            <div>
+            <div className="column">
               {display === false ? (
                 <li key={index}>
                   <p>{result.title}</p>
