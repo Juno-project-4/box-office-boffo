@@ -16,8 +16,6 @@ const FirebaseLists = () => {
     const [list, setList] = useState([]);
     // Updating the final predicted list of summer movies
     const [predictedLists, setPredictedLists] = useState([]);
-    // Updating the toggle clicking "Save the list" button
-    const [savedList, setSavedList] = useState(true);
 
     useEffect(() => {
         // code here for fetching data from API call
@@ -39,8 +37,21 @@ const FirebaseLists = () => {
                     movie: data[key],
                 });
             }
-            // Updating the list of selected movies
-            setList(newState);
+            // Create a copy of the array of objects from Firebase to filter the object with "prediction" key
+            // Update the list of selected movies
+            const copyNewState = [...newState];
+            copyNewState.filter((obj) => {
+                if (obj.key === "prediction") {
+                    const filteredNewState = copyNewState.slice(
+                        0,
+                        copyNewState.length - 1
+                    );
+                    // Updating the list of selected movies
+                    setList(filteredNewState);
+                } else {
+                    setList(copyNewState);
+                }
+            });
         });
     }, []);
 
@@ -79,12 +90,19 @@ const FirebaseLists = () => {
 
     // "Save the list" button function
     const handleSave = () => {
-        // Toggle the status of  "Save the list" button
-        if (savedList) setSavedList(!savedList);
-        const dbRef = firebase.database().ref("prediction").push();
-        dbRef.set(list);
+        if (list.length < 10) {
+            alert("Please select 10 movies to save the list");
+        } else {
+            // Toggle the status of  "Save the list" button
+            const dbRef = firebase.database().ref("prediction").push();
+            dbRef.set(list);
+            // Remove the selected list of movie from Firebase when click "Save the list" button
+            const dbFirebase = firebase.database().ref();
+            list.map((obj) => dbFirebase.child(obj.key).remove());
+        }
     };
 
+    // Delete button function to remove the final prediction list of movie
     const handleDelete = (key) => {
         const dbRef = firebase.database().ref("prediction");
         dbRef.child(key).remove();
@@ -95,7 +113,6 @@ const FirebaseLists = () => {
             <SearchedMovies movies={movies} handleAdd={handleAdd} />
             <SelectedList
                 list={list}
-                savedList={savedList}
                 handleRemove={handleRemove}
                 handleSave={handleSave}
             />
@@ -105,5 +122,5 @@ const FirebaseLists = () => {
             />
         </div>
     );
-}
+};
 export default FirebaseLists;
