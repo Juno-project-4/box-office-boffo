@@ -9,6 +9,7 @@ import PredictedLists from "./PredictedLists";
 // Imported fake data to test the app
 import resultsExample from "./resultsExample.js";
 
+
 const FirebaseLists = (props) => {
   // Updating the list of searched movies
   const [movies, setMovies] = useState([]);
@@ -55,32 +56,34 @@ const FirebaseLists = (props) => {
     });
   }, []);
 
-  useEffect(() => {
-    // Reference the prediction object from Firebase
-    const dbRef = firebase.database().ref("prediction");
-    dbRef.on("value", (res) => {
-      const data = res.val();
-      const newState = [];
-      for (let key in data) {
-        newState.push({
-          key: key,
-          list: data[key],
-        });
-      }
-      // Updating the list of final predicted movies
-      setPredictedLists(newState);
-    });
-  }, []);
 
-  // Add button function
-  const handleAdd = (props) => {
-    const dbRef = firebase.database().ref();
-    const movie = {
-      title: props.title,
-      date: props.release_date,
+    useEffect(() => {
+        // Reference the prediction object from Firebase
+        const dbRef = firebase.database().ref("prediction");
+        dbRef.on("value", (res) => {
+            const data = res.val();
+            const newState = [];
+            for (let key in data) {
+                newState.push({
+                    key: key,
+                    list: data[key],
+                });
+            }
+            // Updating the list of final predicted movies
+            setPredictedLists(newState);
+        });
+    }, []);
+
+    // Add button function
+    const handleAdd = (props) => {
+        const dbRef = firebase.database().ref();
+        const movie = {
+            title: props.title,
+            date: props.release_date,
+        };
+        dbRef.push(movie);
     };
-    dbRef.push(movie);
-  };
+
 
   // Remove button function
   const handleRemove = (key) => {
@@ -90,6 +93,7 @@ const FirebaseLists = (props) => {
       setList([]);
     }
   };
+
 
   // "Save the list" button function
   const handleSave = () => {
@@ -129,5 +133,6 @@ const FirebaseLists = (props) => {
       />
     </div>
   );
+
 };
 export default FirebaseLists;

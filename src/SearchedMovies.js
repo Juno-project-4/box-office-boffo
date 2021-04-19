@@ -1,3 +1,4 @@
+
 const SearchedMovies = ({ handleAdd, firstSet }) => {
   return (
     <div className="search-container">
@@ -17,6 +18,7 @@ const SearchedMovies = ({ handleAdd, firstSet }) => {
       </ul>
     </div>
   );
+
 };
 
 export default SearchedMovies;

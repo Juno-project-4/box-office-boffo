@@ -1,4 +1,5 @@
 const DisplayMovie = (props) => {
+
   return (
     <div>
       {props.firstSet.map((e) => {
@@ -19,6 +20,7 @@ const DisplayMovie = (props) => {
       </div>
     </div>
   );
+
 };
 
 export default DisplayMovie;
