@@ -1,4 +1,4 @@
-const SearchedMovies = ({ movies, handleAdd, firstSet, display }) => {
+const SearchedMovies = ({ handleAdd, firstSet }) => {
   return (
     <div className="search-container">
       <h2>Search them moveis</h2>
