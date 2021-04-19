@@ -9,7 +9,7 @@ import PredictedLists from "./PredictedLists";
 // Imported fake data to test the app
 import resultsExample from "./resultsExample.js";
 
-const FirebaseLists = (props) => {
+const FirebaseLists = () => {
     // Updating the list of searched movies
     const [movies, setMovies] = useState([]);
     // Updating the list movies the user want to add to the prediction list
@@ -17,13 +17,11 @@ const FirebaseLists = (props) => {
     // Updating the final predicted list of summer movies
     const [predictedLists, setPredictedLists] = useState([]);
 
-
-  //   useEffect(() => {
-  //     // code here for fetching data from API call
-  //     // resultsExample is a fake array of data
-  //
-  //   }, []);
-
+    useEffect(() => {
+        // code here for fetching data from API call
+        // resultsExample is a fake array of data
+        setMovies(resultsExample);
+    }, []);
 
     useEffect(() => {
         // Here we create a variable that holds a reference to our database
@@ -54,46 +52,41 @@ const FirebaseLists = (props) => {
                     setList(copyNewState);
                 }
             });
-
         });
-      }
-      // Updating the list of selected movies
-      setList(newState);
-    });
-  }, []);
+    }, []);
 
-  useEffect(() => {
-    // Reference the prediction object from Firebase
-    const dbRef = firebase.database().ref("prediction");
-    dbRef.on("value", (res) => {
-      const data = res.val();
-      const newState = [];
-      for (let key in data) {
-        newState.push({
-          key: key,
-          list: data[key],
+    useEffect(() => {
+        // Reference the prediction object from Firebase
+        const dbRef = firebase.database().ref("prediction");
+        dbRef.on("value", (res) => {
+            const data = res.val();
+            const newState = [];
+            for (let key in data) {
+                newState.push({
+                    key: key,
+                    list: data[key],
+                });
+            }
+            // Updating the list of final predicted movies
+            setPredictedLists(newState);
         });
-      }
-      // Updating the list of final predicted movies
-      setPredictedLists(newState);
-    });
-  }, []);
+    }, []);
 
-  // Add button function
-  const handleAdd = (props) => {
-    const dbRef = firebase.database().ref();
-    const movie = {
-      title: props.title,
-      date: props.release_date,
+    // Add button function
+    const handleAdd = (props) => {
+        const dbRef = firebase.database().ref();
+        const movie = {
+            title: props.title,
+            date: props.release_date,
+        };
+        dbRef.push(movie);
     };
-    dbRef.push(movie);
-  };
 
-  // Remove button function
-  const handleRemove = (key) => {
-    const dbRef = firebase.database().ref();
-    dbRef.child(key).remove();
-  };
+    // Remove button function
+    const handleRemove = (key) => {
+        const dbRef = firebase.database().ref();
+        dbRef.child(key).remove();
+    };
 
     // "Save the list" button function
     const handleSave = () => {
@@ -117,7 +110,7 @@ const FirebaseLists = (props) => {
 
     return (
         <div>
-            <SearchedMovies movies={props.movies} handleAdd={handleAdd} />
+            <SearchedMovies movies={movies} handleAdd={handleAdd} />
             <SelectedList
                 list={list}
                 handleRemove={handleRemove}
@@ -129,6 +122,5 @@ const FirebaseLists = (props) => {
             />
         </div>
     );
-
 };
 export default FirebaseLists;
