@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import DisplayMovie from "./DisplayMovie";
 import Search from "./Search";
-
+import FirebaseLists from "./FirebaseLists";
 const MovieSearch = () => {
   //const [allMoviesArray, setAllMoviesArray] = useState([]);
   const [movieObj, setMovieObj] = useState([]);
@@ -25,6 +25,7 @@ const MovieSearch = () => {
 
   const apiCall = (e, year) => {
     e.preventDefault();
+
     setYearPicked(year);
     url.search = new URLSearchParams({
       api_key: apiKey,
@@ -43,7 +44,8 @@ const MovieSearch = () => {
         }
         setNumOfPages(numArray);
       });
-    setIsDisplayed(false);
+    setIsDisplayed(true);
+    console.log(isDiplayed);
   };
 
   const getPage = (pageNum) => {
@@ -60,13 +62,10 @@ const MovieSearch = () => {
       .then((jsonResponse) => {
         setAllMovies(jsonResponse.results);
       });
-    setIsDisplayed(true);
   };
 
   //on year select do initial api call, display initial 20 movies on page, do second api call to get all remaining movies and store in an array
   //allow user to search array for specific title and render that array to page, allow user to select a page number, do api call for that specific page and display on page
-
-  //need to figure out how to dynamically render page numbers to page based on total_pages field
 
   //search allMoviesArray for a movie title that matches input
   //for(i < arraylength) { if input == array[i].title} display that movie
@@ -96,20 +95,32 @@ const MovieSearch = () => {
   return (
     <div>
       <Search apiCall={apiCall} />
-      <DisplayMovie
+      {/* <DisplayMovie
         movie={allMovies}
         firstSet={movieObj}
         display={isDiplayed}
-      />
+      /> */}
       {/* {movieObj.map((e) => {
         return <p>{e.title}</p>;
       })} */}
+
+      <div>
+        {" "}
+        <FirebaseLists
+          movies={allMovies}
+          firstSet={movieObj}
+          display={isDiplayed}
+        />
+        ;
+      </div>
       {numOfPages.map((num) => {
         return (
           <button
             key={num}
             onClick={() => {
               getPage(num + 1);
+              setIsDisplayed(false);
+              console.log(isDiplayed);
             }}
           >
             {num + 1}
@@ -121,3 +132,7 @@ const MovieSearch = () => {
 };
 
 export default MovieSearch;
+
+// need to make a call then display the first page of results
+// after that call the page numbers will be displayed
+//but need to remove the first page and not redner under it

@@ -7,11 +7,11 @@ import FirebaseLists from "./FirebaseLists";
 import MovieSearch from "./MovieSearch";
 
 function App() {
-    return (
-        <div>
-            <MovieSearch />
-            <FirebaseLists />
-        </div>
-    );
+  return (
+    <div>
+      <MovieSearch />
+      {/* <FirebaseLists /> */}
+    </div>
+  );
 }
 export default App;
