@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import DisplayMovie from "./DisplayMovie";
 import Search from "./Search";
 
+import FirebaseLists from "./FirebaseLists";
+
 const MovieSearch = () => {
+
   //const [allMoviesArray, setAllMoviesArray] = useState([]);
   const [movieObj, setMovieObj] = useState([]);
   const [allMovies, setAllMovies] = useState([]);
@@ -104,6 +107,12 @@ const MovieSearch = () => {
       {/* {movieObj.map((e) => {
         return <p>{e.title}</p>;
       })} */}
+
+
+      <div>
+        <FirebaseLists firstSet={movieObj} display={isDiplayed} />;
+      </div>
+
       {numOfPages.map((num) => {
         return (
           <button
