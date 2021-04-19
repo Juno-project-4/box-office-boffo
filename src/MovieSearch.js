@@ -5,7 +5,7 @@ import FirebaseLists from "./FirebaseLists";
 const MovieSearch = () => {
   //const [allMoviesArray, setAllMoviesArray] = useState([]);
   const [movieObj, setMovieObj] = useState([]);
-  const [allMovies, setAllMovies] = useState([]);
+  // const [allMovies, setAllMovies] = useState([]);
   const [numOfPages, setNumOfPages] = useState([]);
   const [yearPicked, setYearPicked] = useState("");
   const [isDiplayed, setIsDisplayed] = useState(false);
@@ -31,6 +31,8 @@ const MovieSearch = () => {
       api_key: apiKey,
       [lessDate]: `${year}-09-04`,
       [greatDate]: `${year}-05-01`,
+      include_adult: "false",
+      include_video: "false",
     });
 
     fetch(url)
@@ -39,7 +41,7 @@ const MovieSearch = () => {
       })
       .then((jsonResponse) => {
         setMovieObj(jsonResponse.results);
-        for (let i = 0; i < jsonResponse.total_pages; i++) {
+        for (let i = 0; i < 20; i++) {
           numArray.push(i);
         }
         setNumOfPages(numArray);
@@ -60,10 +62,10 @@ const MovieSearch = () => {
         return res.json();
       })
       .then((jsonResponse) => {
-        setAllMovies(jsonResponse.results);
+        setMovieObj(jsonResponse.results);
       });
   };
-
+  //THINGS
   //on year select do initial api call, display initial 20 movies on page, do second api call to get all remaining movies and store in an array
   //allow user to search array for specific title and render that array to page, allow user to select a page number, do api call for that specific page and display on page
 
@@ -106,12 +108,7 @@ const MovieSearch = () => {
 
       <div>
         {" "}
-        <FirebaseLists
-          movies={allMovies}
-          firstSet={movieObj}
-          display={isDiplayed}
-        />
-        ;
+        <FirebaseLists firstSet={movieObj} display={isDiplayed} />;
       </div>
       {numOfPages.map((num) => {
         return (
