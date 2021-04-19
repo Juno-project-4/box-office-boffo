@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import DisplayMovie from "./DisplayMovie";
 import Search from "./Search";
-import FirebaseLists from "./FirebaseLists";
+
 const MovieSearch = () => {
   //const [allMoviesArray, setAllMoviesArray] = useState([]);
   const [movieObj, setMovieObj] = useState([]);
-  // const [allMovies, setAllMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
   const [numOfPages, setNumOfPages] = useState([]);
   const [yearPicked, setYearPicked] = useState("");
   const [isDiplayed, setIsDisplayed] = useState(false);
@@ -25,14 +25,11 @@ const MovieSearch = () => {
 
   const apiCall = (e, year) => {
     e.preventDefault();
-
     setYearPicked(year);
     url.search = new URLSearchParams({
       api_key: apiKey,
       [lessDate]: `${year}-09-04`,
       [greatDate]: `${year}-05-01`,
-      include_adult: "false",
-      include_video: "false",
     });
 
     fetch(url)
@@ -41,13 +38,12 @@ const MovieSearch = () => {
       })
       .then((jsonResponse) => {
         setMovieObj(jsonResponse.results);
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < jsonResponse.total_pages; i++) {
           numArray.push(i);
         }
         setNumOfPages(numArray);
       });
-    setIsDisplayed(true);
-    console.log(isDiplayed);
+    setIsDisplayed(false);
   };
 
   const getPage = (pageNum) => {
@@ -62,12 +58,15 @@ const MovieSearch = () => {
         return res.json();
       })
       .then((jsonResponse) => {
-        setMovieObj(jsonResponse.results);
+        setAllMovies(jsonResponse.results);
       });
+    setIsDisplayed(true);
   };
-  //THINGS
+
   //on year select do initial api call, display initial 20 movies on page, do second api call to get all remaining movies and store in an array
   //allow user to search array for specific title and render that array to page, allow user to select a page number, do api call for that specific page and display on page
+
+  //need to figure out how to dynamically render page numbers to page based on total_pages field
 
   //search allMoviesArray for a movie title that matches input
   //for(i < arraylength) { if input == array[i].title} display that movie
@@ -97,27 +96,20 @@ const MovieSearch = () => {
   return (
     <div>
       <Search apiCall={apiCall} />
-      {/* <DisplayMovie
+      <DisplayMovie
         movie={allMovies}
         firstSet={movieObj}
         display={isDiplayed}
-      /> */}
+      />
       {/* {movieObj.map((e) => {
         return <p>{e.title}</p>;
       })} */}
-
-      <div>
-        {" "}
-        <FirebaseLists firstSet={movieObj} display={isDiplayed} />;
-      </div>
       {numOfPages.map((num) => {
         return (
           <button
             key={num}
             onClick={() => {
               getPage(num + 1);
-              setIsDisplayed(false);
-              console.log(isDiplayed);
             }}
           >
             {num + 1}
@@ -129,7 +121,3 @@ const MovieSearch = () => {
 };
 
 export default MovieSearch;
-
-// need to make a call then display the first page of results
-// after that call the page numbers will be displayed
-//but need to remove the first page and not redner under it
