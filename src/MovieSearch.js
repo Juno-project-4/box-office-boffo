@@ -17,7 +17,6 @@ const MovieSearch = (props) => {
     const url = new URL(searchUrl);
 
     const numArray = [];
-
     useEffect(() => {
         url.search = new URLSearchParams({
             api_key: apiKey,
@@ -33,32 +32,53 @@ const MovieSearch = (props) => {
             })
             .then((jsonResponse) => {
                 setMovieObj(jsonResponse.results);
-                for (let i = 0; i < 20; i++) {
+                for (let i = 1; i < 21; i++) {
                     numArray.push(i);
                 }
                 setNumOfPages(numArray);
             });
     }, [props.year]);
 
-    // const getPage = (pageNum) => {
-    //   url.search = new URLSearchParams({
-    //     api_key: apiKey,
-    //     [lessDate]: lessYear,
-    //     [greatDate]: greatYear,
-    //     page: pageNum,
-    //   });
-    //   fetch(url)
-    //     .then((res) => {
-    //       return res.json();
-    //     })
-    //     .then((jsonResponse) => {
-    //       setMovieObj(jsonResponse.results);
-    //     });
-    // };
+    const handleClick = (pageNum) => {
+        url.search = new URLSearchParams({
+            api_key: apiKey,
+            [lessDate]: lessYear,
+            [greatDate]: greatYear,
+            page: pageNum,
+        });
+        fetch(url)
+            .then((res) => {
+                return res.json();
+            })
+            .then((jsonResponse) => {
+                const newArray = [];
+                jsonResponse.results.filter((movies) => {
+                    if (movies.poster_path !== null) {
+                        newArray.push(movies);
+                    }
+                });
+                setMovieObj(newArray);
+            });
+    };
 
     return (
         <div>
             <div className="wrapper">
+                {movieObj.length !== 0 ? (
+                    <div>
+                        {numOfPages.map((page) => {
+                            return (
+                                <button
+                                    key={page}
+                                    onClick={() => handleClick(page)}
+                                >
+                                    {page}
+                                </button>
+                            );
+                        })}
+                    </div>
+                ) : null}
+
                 <SearchedMovies movies={movieObj} />
             </div>
         </div>

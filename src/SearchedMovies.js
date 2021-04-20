@@ -1,6 +1,6 @@
-import { useState } from "react";
 import FirebaseLists from "./FirebaseLists";
 import firebase from "./firebase";
+import { useState } from "react";
 
 const SearchedMovies = (props) => {
     const selectMovie = (title) => {

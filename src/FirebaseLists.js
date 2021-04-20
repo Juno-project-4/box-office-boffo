@@ -25,7 +25,6 @@ const FirebaseLists = () => {
                     movie: data[key],
                 });
             }
-
             // Create a copy of the array of objects from Firebase to filter the object with "prediction" key
             // Update the list of selected movies
             const copyNewState = [...newState];
@@ -65,9 +64,6 @@ const FirebaseLists = () => {
     const handleRemove = (key) => {
         const dbRef = firebase.database().ref();
         dbRef.child(key).remove();
-        // if (list.length === 1) {
-        //     setList([]);
-        // }
     };
 
     // "Save the list" button function
