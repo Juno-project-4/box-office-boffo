@@ -1,13 +1,13 @@
 import "./App.css";
 
 // Kevin Component
-import MovieSearch from "./MovieSearch";
+import Search from "./Search";
 import SelectedList from "./SelectedList";
 
 function App() {
   return (
     <div>
-      <MovieSearch />
+      <Search />
     </div>
   );
 }
