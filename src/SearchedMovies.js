@@ -1,20 +1,25 @@
 const SearchedMovies = ({ handleAdd, firstSet }) => {
+  console.log(firstSet);
   return (
     <div className="search-container">
-      <h2>Search them moveis</h2>
-      <ul className="search-list">
+      <h2>Movies</h2>
+      <div className="search-list">
         {firstSet.map((result, index) => {
           return (
             <div className="column">
-              <li key={index}>
-                <p>{result.title}</p>
-
+              <div>
+                <img
+                  src={`http://image.tmdb.org/t/p/w500/${result.poster_path}`}
+                  alt={result.original_title}
+                />
+              </div>
+              <div>
                 <button onClick={() => handleAdd(result)}>Add</button>
-              </li>
+              </div>
             </div>
           );
         })}
-      </ul>
+      </div>
     </div>
   );
 };

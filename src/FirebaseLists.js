@@ -5,12 +5,19 @@ import firebase from "./firebase.js";
 import SearchedMovies from "./SearchedMovies.js";
 import SelectedList from "./SelectedList";
 import PredictedLists from "./PredictedLists";
-import Modal from "./Modal.js";
+
+import ApiPages from "./ApiPages";
 
 // Imported fake data to test the app
 import resultsExample from "./resultsExample.js";
 
-const FirebaseLists = ({ firstSet, display }) => {
+const FirebaseLists = ({
+  firstSet,
+  display,
+  pages,
+  getPage,
+  setIsDispalyed,
+}) => {
   // Updating the list of searched movies
   const [movies, setMovies] = useState([]);
   // Updating the list movies the user want to add to the prediction list
@@ -118,35 +125,34 @@ const FirebaseLists = ({ firstSet, display }) => {
   };
 
   return (
-    <div>
-      <button onClick={openModal} className="button">
+    <section className="bg-color">
+      <div className="wrapper">
+        {/* <button onClick={openModal} className="button">
         Prediction List
-      </button>
-      <Modal
+        </button>
+        <Modal
         showModal={showModal}
         modalValue={setShowModal}
         list={list}
         handleRemove={handleRemove}
         handleSave={handleSave}
-      />
+      /> */}
+        <SelectedList
+          list={list}
+          handleRemove={handleRemove}
+          handleSave={handleSave}
+        />
+        <div className="align-center">
+          <ApiPages pages={pages} getPage={getPage} dispaly={setIsDispalyed} />
+        </div>
+        <SearchedMovies handleAdd={handleAdd} firstSet={firstSet} />
 
-      <SearchedMovies
-        handleAdd={handleAdd}
-        firstSet={firstSet}
-        display={display}
-      />
-
-      <SelectedList
-        list={list}
-        handleRemove={handleRemove}
-        handleSave={handleSave}
-      />
-
-      <PredictedLists
-        predictedLists={predictedLists}
-        handleDelete={handleDelete}
-      />
-    </div>
+        <PredictedLists
+          predictedLists={predictedLists}
+          handleDelete={handleDelete}
+        />
+      </div>
+    </section>
   );
 };
 export default FirebaseLists;
