@@ -37,13 +37,8 @@ function Search(props) {
     <section className="search-container">
       <div className="wrapper option-container">
         <h2>Please Select The year</h2>
-        <form
-          onSubmit={(e) => {
-            props.apiCall(e, userYear, textInput);
-          }}
-          className="search-form"
-        >
-          <label htmlFor="movieSearch">Search Movies!</label>
+        <form>
+          {/* <label htmlFor="movieSearch">Search Movies!</label>
           <input
             type="text"
             id="movieSearch"
@@ -51,7 +46,7 @@ function Search(props) {
             onChange={handleChange}
             className="search-drop-down"
             placeholder="Search Movie Titles"
-          />
+          /> */}
           <label htmlFor="yearDropDown">Pick the Year!</label>
           <select
             name="yearDropDown"
@@ -67,15 +62,14 @@ function Search(props) {
               return <option value={year}>{year}</option>;
             })}
           </select>
-          {btnDis === false ? (
+          {/* {btnDis === false ? (
             <button className="btn-submit-form" type="submit">
               Submit
             </button>
           ) : (
             <button className="btn-submit-form hidden" type="submit">
               Submit
-            </button>
-          )}
+            </button> */}
         </form>
       </div>
     </section>
