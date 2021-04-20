@@ -1,17 +1,13 @@
 import "./App.css";
 
-// Christie Components
-import FirebaseLists from "./FirebaseLists";
-
 // Kevin Component
 import MovieSearch from "./MovieSearch";
 
 function App() {
-    return (
-        <div>
-            <MovieSearch />
-            <FirebaseLists />
-        </div>
-    );
+  return (
+    <div>
+      <MovieSearch />
+    </div>
+  );
 }
 export default App;
