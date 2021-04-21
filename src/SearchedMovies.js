@@ -1,34 +1,8 @@
 import FirebaseLists from "./FirebaseLists";
-import firebase from "./firebase";
+
+import { Link } from "react-router-dom";
 
 const SearchedMovies = (props) => {
-
-    const selectMovie = (title) => {       
-        const dbRef = firebase.database().ref();
-
-        const searchURL = new URL(props.urlEndpoint + title.id);
-        searchURL.search = new URLSearchParams({
-            api_key: props.apiKey
-        });
-        
-        fetch(searchURL)
-        .then((res) => {
-            return res.json();
-        })
-        .then((jsonResponse) => {
-            const selectedMovie = {
-                title: jsonResponse.title,
-                id: jsonResponse.id,
-                budget: jsonResponse.budget,
-                poster_path: jsonResponse.poster_path,
-                release: jsonResponse.release_date,
-                revenue: jsonResponse.revenue,
-                desc: jsonResponse.overview
-            }
-            dbRef.push(selectedMovie);
-        }); 
-    };
-
     return (
         <>
             <div className="search-container">
@@ -43,13 +17,15 @@ const SearchedMovies = (props) => {
                         return (
                             <div key={individualMovie.id} className="column">
                                 <div>
-                                    <img
-                                        src={`http://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
-                                        alt={individualMovie.original_title}
-                                        onClick={() => {
-                                            selectMovie(individualMovie);
-                                        }}
-                                    />
+                                    <Link
+                                        to={`/movie/${individualMovie.id}`}
+                                        aria-label="Go to the movie detail"
+                                    >
+                                        <img
+                                            src={`http://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
+                                            alt={individualMovie.original_title}
+                                        />
+                                    </Link>
                                 </div>
                             </div>
                         );

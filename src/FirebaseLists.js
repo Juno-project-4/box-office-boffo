@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import firebase from "./firebase.js";
 
 import SelectedList from "./SelectedList";
-import PredictedLists from "./PredictedLists";
 
 const FirebaseLists = () => {
     // Updating the list movies the user want to add to the prediction list
     const [list, setList] = useState([]);
-
 
     useEffect(() => {
         // Here we create a variable that holds a reference to our database
@@ -42,12 +40,11 @@ const FirebaseLists = () => {
         });
     }, []);
 
-
     // Remove button function
     const handleRemove = (key) => {
         const dbRef = firebase.database().ref();
         dbRef.child(key).remove();
-        if(list.length === 1 ) {
+        if (list.length === 1) {
             setList([]);
         }
     };
@@ -61,8 +58,6 @@ const FirebaseLists = () => {
         const dbFirebase = firebase.database().ref();
         list.map((obj) => dbFirebase.child(obj.key).remove());
     };
-
-
 
     return (
         <section className="bg-color">
