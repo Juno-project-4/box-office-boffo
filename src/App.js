@@ -1,16 +1,14 @@
 import "./App.css";
-
-// Christie Components
-import FirebaseLists from "./FirebaseLists";
-
-// Kevin Component
-import MovieSearch from "./MovieSearch";
+import Header from "./Header";
+import Footer from "./Footer";
+import Search from "./Search";
 
 function App() {
     return (
-        <div>
-            <MovieSearch />
-            <FirebaseLists />
+        <div className="main-container">
+            <Header />
+            <Search />
+            <Footer />
         </div>
     );
 }

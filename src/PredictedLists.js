@@ -1,6 +1,9 @@
-const PredictedLists = ({ predictedLists, handleDelete }) => {
+const PredictedLists = ({ predictedLists, handleDelete, sum }) => {
+    
+    
+    
     return (
-        <div>
+        <div className="prediction-wrapper">
             {predictedLists.map((lists) => {
                 return (
                     <div key={lists.key} className="prediction-container">
@@ -13,6 +16,7 @@ const PredictedLists = ({ predictedLists, handleDelete }) => {
                                     </li>
                                 );
                             })}
+                            <p>Total revenue of selected movies: {sum}</p>
                         </ol>
                         <button onClick={() => handleDelete(lists.key)}>
                             Delete List!

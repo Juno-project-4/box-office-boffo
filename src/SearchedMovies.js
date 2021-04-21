@@ -1,24 +1,64 @@
+import FirebaseLists from "./FirebaseLists";
+import firebase from "./firebase";
 
-const SearchedMovies = ({ handleAdd, firstSet }) => {
-  return (
-    <div className="search-container">
-      <h2>Search them moveis</h2>
-      <ul className="search-list">
-        {firstSet.map((result, index) => {
-          return (
-            <div className="column">
-              <li key={index}>
-                <p>{result.title}</p>
+const SearchedMovies = (props) => {
 
-                <button onClick={() => handleAdd(result)}>Add</button>
-              </li>
+    const selectMovie = (title) => {       
+        const dbRef = firebase.database().ref();
+
+        const searchURL = new URL(props.urlEndpoint + title.id);
+        searchURL.search = new URLSearchParams({
+            api_key: props.apiKey
+        });
+        
+        fetch(searchURL)
+        .then((res) => {
+            return res.json();
+        })
+        .then((jsonResponse) => {
+            const selectedMovie = {
+                title: jsonResponse.title,
+                id: jsonResponse.id,
+                budget: jsonResponse.budget,
+                poster_path: jsonResponse.poster_path,
+                release: jsonResponse.release_date,
+                revenue: jsonResponse.revenue,
+                desc: jsonResponse.overview
+            }
+            dbRef.push(selectedMovie);
+        }); 
+    };
+
+    return (
+        <>
+            <div className="search-container">
+                <h2>Movies</h2>
+                <h4>
+                    Summer Movies is an app that lets users compete with friends
+                    in summer movie pools by predicting the top 10 grossing
+                    movies for a particular summer!
+                </h4>
+                <div className="search-list">
+                    {props.movies.map((individualMovie) => {
+                        return (
+                            <div key={individualMovie.id} className="column">
+                                <div>
+                                    <img
+                                        src={`http://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
+                                        alt={individualMovie.original_title}
+                                        onClick={() => {
+                                            selectMovie(individualMovie);
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-          );
-        })}
-      </ul>
-    </div>
-  );
-
+            <FirebaseLists />
+        </>
+    );
 };
 
 export default SearchedMovies;
