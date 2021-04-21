@@ -1,12 +1,8 @@
 import FirebaseLists from "./FirebaseLists";
-import firebase from "./firebase";
+
+import { Link } from "react-router-dom";
 
 const SearchedMovies = (props) => {
-    const selectMovie = (title) => {
-        const dbRef = firebase.database().ref();
-        dbRef.push(title);
-    };
-
     return (
         <>
             <div className="search-container">
@@ -21,13 +17,15 @@ const SearchedMovies = (props) => {
                         return (
                             <div key={individualMovie.id} className="column">
                                 <div>
-                                    <img
-                                        src={`http://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
-                                        alt={individualMovie.original_title}
-                                        onClick={() => {
-                                            selectMovie(individualMovie);
-                                        }}
-                                    />
+                                    <Link
+                                        to={`/movie/${individualMovie.id}`}
+                                        aria-label="Go to the movie detail"
+                                    >
+                                        <img
+                                            src={`http://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
+                                            alt={individualMovie.original_title}
+                                        />
+                                    </Link>
                                 </div>
                             </div>
                         );

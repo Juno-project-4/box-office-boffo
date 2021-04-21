@@ -64,6 +64,9 @@ const FirebaseLists = () => {
     const handleRemove = (key) => {
         const dbRef = firebase.database().ref();
         dbRef.child(key).remove();
+        if (list.length === 1) {
+            setList([]);
+        }
     };
 
     // "Save the list" button function

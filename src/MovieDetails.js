@@ -1,0 +1,49 @@
+import { useEffect, useState } from "react";
+import firebase from "./firebase";
+
+const MovieDetails = (props) => {
+    const [movie, setMovie] = useState([]);
+
+    const apiKey = "a95c3731bb8d542ff3503355315d717a";
+    const searchUrl = `https://api.themoviedb.org/3/movie/${props.match.params.movieId}`;
+    const url = new URL(searchUrl);
+
+    useEffect(() => {
+        url.search = new URLSearchParams({
+            api_key: apiKey,
+        });
+
+        fetch(url)
+            .then((res) => {
+                return res.json();
+            })
+            .then((jsonResponse) => {
+                setMovie(jsonResponse);
+            });
+    }, []);
+
+    const selectMovie = (title) => {
+        const dbRef = firebase.database().ref();
+        dbRef.push(title);
+    };
+
+    return (
+        <div className="movie-detail-container">
+            <div className="movie-description">
+                <h2>{movie.original_title}</h2>
+                <p>{movie.overview}</p>
+                <button onClick={() => selectMovie(movie)}>
+                    Add to your list
+                </button>
+            </div>
+            <div className="movie-poster">
+                <img
+                    src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                    alt={`Poster for ${movie.original_title}`}
+                />
+            </div>
+        </div>
+    );
+};
+
+export default MovieDetails;
