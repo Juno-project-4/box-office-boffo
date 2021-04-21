@@ -65,12 +65,13 @@ const MovieSearch = (props) => {
         <div>
             <div className="wrapper">
                 {movieObj.length !== 0 ? (
-                    <div>
+                    <div className="page-container">
                         {numOfPages.map((page) => {
                             return (
                                 <button
                                     key={page}
                                     onClick={() => handleClick(page)}
+                                    className="page-btn"
                                 >
                                     {page}
                                 </button>

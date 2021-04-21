@@ -68,38 +68,36 @@ const FirebaseLists = () => {
 
     // "Save the list" button function
     const handleSave = () => {
-        if (list.length < 10) {
-            alert("Please select 10 movies to save the list");
-        } else {
-            // Toggle the status of  "Save the list" button
-            const dbRef = firebase.database().ref("prediction").push();
-            dbRef.set(list);
-            // Remove the selected list of movie from Firebase when click "Save the list" button
-            const dbFirebase = firebase.database().ref();
-            list.map((obj) => dbFirebase.child(obj.key).remove());
-        }
+        // Toggle the status of  "Save the list" button
+        const dbRef = firebase.database().ref("prediction").push();
+        dbRef.set(list);
+        // Remove the selected list of movie from Firebase when click "Save the list" button
+        const dbFirebase = firebase.database().ref();
+        list.map((obj) => dbFirebase.child(obj.key).remove());
     };
 
     // Delete button function to remove the final prediction list of movie
     const handleDelete = (key) => {
-        const dbRef = firebase.database().ref("prediction");
-        dbRef.child(key).remove();
+        const confirmDelete = window.confirm(
+            "Are you sure to delete the list?"
+        );
+        if (confirmDelete) {
+            const dbRef = firebase.database().ref("prediction");
+            dbRef.child(key).remove();
+        }
     };
 
     return (
         <section className="bg-color">
-            <div className="wrapper">
-                <SelectedList
-                    list={list}
-                    handleRemove={handleRemove}
-                    handleSave={handleSave}
-                />
-
-                <PredictedLists
-                    predictedLists={predictedLists}
-                    handleDelete={handleDelete}
-                />
-            </div>
+            <SelectedList
+                list={list}
+                handleRemove={handleRemove}
+                handleSave={handleSave}
+            />
+            <PredictedLists
+                predictedLists={predictedLists}
+                handleDelete={handleDelete}
+            />
         </section>
     );
 };
