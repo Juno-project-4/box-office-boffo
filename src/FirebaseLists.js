@@ -8,8 +8,7 @@ import PredictedLists from "./PredictedLists";
 const FirebaseLists = () => {
     // Updating the list movies the user want to add to the prediction list
     const [list, setList] = useState([]);
-    // Updating the final predicted list of summer movies
-    const [predictedLists, setPredictedLists] = useState([]);
+
 
     useEffect(() => {
         // Here we create a variable that holds a reference to our database
@@ -43,27 +42,14 @@ const FirebaseLists = () => {
         });
     }, []);
 
-    useEffect(() => {
-        // Reference the prediction object from Firebase
-        const dbRef = firebase.database().ref("prediction");
-        dbRef.on("value", (res) => {
-            const data = res.val();
-            const newState = [];
-            for (let key in data) {
-                newState.push({
-                    key: key,
-                    list: data[key],
-                });
-            }
-            // Updating the list of final predicted movies
-            setPredictedLists(newState);
-        });
-    }, []);
 
     // Remove button function
     const handleRemove = (key) => {
         const dbRef = firebase.database().ref();
         dbRef.child(key).remove();
+        if(list.length === 1 ) {
+            setList([]);
+        }
     };
 
     // "Save the list" button function
@@ -76,16 +62,7 @@ const FirebaseLists = () => {
         list.map((obj) => dbFirebase.child(obj.key).remove());
     };
 
-    // Delete button function to remove the final prediction list of movie
-    const handleDelete = (key) => {
-        const confirmDelete = window.confirm(
-            "Are you sure to delete the list?"
-        );
-        if (confirmDelete) {
-            const dbRef = firebase.database().ref("prediction");
-            dbRef.child(key).remove();
-        }
-    };
+
 
     return (
         <section className="bg-color">
@@ -93,10 +70,6 @@ const FirebaseLists = () => {
                 list={list}
                 handleRemove={handleRemove}
                 handleSave={handleSave}
-            />
-            <PredictedLists
-                predictedLists={predictedLists}
-                handleDelete={handleDelete}
             />
         </section>
     );

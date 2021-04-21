@@ -2,9 +2,31 @@ import FirebaseLists from "./FirebaseLists";
 import firebase from "./firebase";
 
 const SearchedMovies = (props) => {
-    const selectMovie = (title) => {
+
+    const selectMovie = (title) => {       
         const dbRef = firebase.database().ref();
-        dbRef.push(title);
+
+        const searchURL = new URL(props.urlEndpoint + title.id);
+        searchURL.search = new URLSearchParams({
+            api_key: props.apiKey
+        });
+        
+        fetch(searchURL)
+        .then((res) => {
+            return res.json();
+        })
+        .then((jsonResponse) => {
+            const selectedMovie = {
+                title: jsonResponse.title,
+                id: jsonResponse.id,
+                budget: jsonResponse.budget,
+                poster_path: jsonResponse.poster_path,
+                release: jsonResponse.release_date,
+                revenue: jsonResponse.revenue,
+                desc: jsonResponse.overview
+            }
+            dbRef.push(selectedMovie);
+        }); 
     };
 
     return (
