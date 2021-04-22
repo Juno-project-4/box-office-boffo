@@ -7,7 +7,7 @@ const MovieDetails = (props) => {
     
     useEffect(() => {
         const apiKey = "a95c3731bb8d542ff3503355315d717a";
-        const searchUrl = `https://api.themoviedb.org/3/movie/${props.match.params.movieId}`;
+        const searchUrl = `https://api.themoviedb.org/3/movie/${props.movieId}`;
         const url = new URL(searchUrl);
         url.search = new URLSearchParams({
             api_key: apiKey,
@@ -20,9 +20,10 @@ const MovieDetails = (props) => {
             .then((jsonResponse) => {
                 setMovie(jsonResponse);
             });
-    }, [props.match.params.movieId]);
+    }, [props.movieId]);
 
     const selectMovie = (title) => {
+        props.handleSelect();
         const dbRef = firebase.database().ref();
         dbRef.push(title);
     };
@@ -46,6 +47,7 @@ const MovieDetails = (props) => {
                         alt={`Poster for ${movie.original_title}`}
                     />
                 </div>
+
             </div>
         </div>
     );

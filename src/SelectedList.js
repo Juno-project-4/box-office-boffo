@@ -55,6 +55,7 @@ const SelectedList = ({ list, handleRemove, handleSave }) => {
                     <button
                         onClick={() => {
                             handleSave();
+
                         }}
                     >
                         Save the list!
