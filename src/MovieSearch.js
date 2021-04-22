@@ -12,10 +12,10 @@ const MovieSearch = (props) => {
 
     const numArray = [];
     
+    const lessYear = `${props.year}-09-04`;
+    const greatYear = `${props.year}-05-01`;
     useEffect(() => {
         const url = new URL(searchUrl);
-        const lessYear = `${props.year}-09-04`;
-        const greatYear = `${props.year}-05-01`;
         url.search = new URLSearchParams({
             api_key: apiKey,
             [lessDate]: lessYear,
@@ -35,9 +35,10 @@ const MovieSearch = (props) => {
                 }
                 setNumOfPages(numArray);
             });
-        }, [props.year]);
+        }, [lessYear, greatYear]);
         
             const handleClick = (pageNum) => {
+                const url = new URL(searchUrl);
                 url.search = new URLSearchParams({
                     api_key: apiKey,
                     [lessDate]: lessYear,
