@@ -80,7 +80,7 @@ const MovieSearch = (props) => {
                     </div>
                 ) : null}
 
-                <SearchedMovies movies={movieObj} apiKey={apiKey} urlEndpoint={'https://api.themoviedb.org/3/movie'}/>
+                <SearchedMovies movies={movieObj} apiKey={apiKey}/>
             </div>
         </div>
     );
