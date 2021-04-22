@@ -4,7 +4,6 @@ import firebase from "./firebase";
 const MovieDetails = (props) => {
     const [movie, setMovie] = useState([]);
 
-    
     useEffect(() => {
         const apiKey = "a95c3731bb8d542ff3503355315d717a";
         const searchUrl = `https://api.themoviedb.org/3/movie/${props.movieId}`;
@@ -47,7 +46,6 @@ const MovieDetails = (props) => {
                         alt={`Poster for ${movie.original_title}`}
                     />
                 </div>
-
             </div>
         </div>
     );
