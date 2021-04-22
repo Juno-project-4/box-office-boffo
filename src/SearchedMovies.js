@@ -7,7 +7,7 @@ const SearchedMovies = (props) => {
         <>
             <div className="search-container">
                 {props.movies.length === 0 ? (
-                    <h2>
+                    <h2 className="search-message">
                         Please select a specific year to see the list of summer
                         movies!
                     </h2>

@@ -104,6 +104,7 @@ html {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    font-size: 125%;
 }
 
 *,
@@ -151,6 +152,10 @@ button {
 button:hover,
 button:focus {
     background-color: var(--green-primary);
+}
+
+h2 {
+    color: #fff;
 }
 
 /* Header styling */
@@ -244,12 +249,13 @@ h4 {
 }
 
 .prediction-container {
-    padding: 10px 10px 30px 10px;
+    padding: 10px 30px 30px 30px;
     margin: 20px 0;
 }
 
 .prediction-container h2 {
     margin-top: 0;
+    padding: 20px 10px;
 }
 
 .prediction-wrapper {
@@ -264,7 +270,11 @@ h4 {
 }
 
 .prediction-container ol {
-    padding-left: 20px;
+    padding-left: 0;
+}
+
+.prediction-container li {
+    padding: 7px 0;
 }
 
 .searched-movies-list li,
@@ -302,7 +312,7 @@ label {
     padding: 10px 0 40px 0;
 }
 
-.search-container h2 {
+.app-description {
     padding: 40px 70px;
     color: #fff;
 }
@@ -342,6 +352,7 @@ label {
 .movie-container img {
     max-width: 100%;
 }
+
 .movie-container li button {
     grid-column: span 2;
     margin: 0 auto;
@@ -350,14 +361,14 @@ label {
 
 /* Page list styling */
 .page-container {
-    padding: 40px;
+    padding: 20px 10px 40px 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
 .page-btn {
-    width: 30px;
+    width: 35px;
     padding: 5px;
     margin: 0 5px;
     border: none;
@@ -414,4 +425,118 @@ footer a {
 footer a:hover,
 footer a:focus {
     color: var(--green-primary);
+}
+
+/* Media queries styling */
+@media (max-width: 1075px) {
+    .prediction-wrapper {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+        row-gap: 20px;
+    }
+
+    .app-description,
+    .search-message,
+    .prediction-container h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Portrait tablet and small desktops */
+@media (max-width: 940px) {
+    h1 {
+        font-size: calc(20px + 4vh);
+        line-height: calc(20px + 3vh);
+    }
+
+    .movie-detail-inner {
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .movie-description {
+        width: 100%;
+        padding-right: 0;
+    }
+
+    .movie-poster {
+        padding-top: 50px;
+    }
+
+    .movie-poster img {
+        max-width: 70%;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+    .searched-movies-list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .search-message,
+    .prediction-container h2 {
+        font-size: 1rem;
+    }
+
+    .prediction-container li,
+    .prediction-container p {
+        font-size: 0.9rem;
+    }
+
+    footer,
+    .prediction-container button {
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    h1 {
+        padding-left: 10px;
+        font-size: calc(20px + 2vh);
+        line-height: calc(20px + 1vh);
+    }
+
+    .app-description {
+        font-size: 1rem;
+        padding: 40px 20px;
+    }
+
+    .search-message,
+    .prediction-container h2 {
+        font-size: 0.9rem;
+    }
+
+    .prediction-list li {
+        flex-flow: column wrap;
+        align-items: center;
+    }
+
+    .prediction-list button {
+        width: 100px;
+        margin: 10px 0;
+    }
+
+    .searched-movies-list {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+    }
+
+    .movie-description h2 {
+        font-size: 1.2rem;
+    }
+
+    .movie-description p,
+    .btn-add,
+    .prediction-container li,
+    .prediction-container p {
+        font-size: 0.8rem;
+    }
+
+    .movie-detail-outer {
+        padding: 50px 20px;
+    }
 }
