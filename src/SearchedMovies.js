@@ -1,12 +1,11 @@
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link } from "react-scroll";
 import MovieDetails from "./MovieDetails";
 
 const SearchedMovies = (props) => {
-    
     const [movieSelected, setMovieSelected] = useState(false);
-    const [movieId, setMovieId] = useState('');
+    const [movieId, setMovieId] = useState("");
 
     return (
         <>
@@ -25,27 +24,39 @@ const SearchedMovies = (props) => {
                                     className="movie-container"
                                 >
                                     <div>
-
-                                        <img
+                                        <Link
+                                            to="movie-detail"
+                                            spy={true}
+                                            smooth={true}
+                                        >
+                                            <img
                                                 src={`https://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
                                                 alt={
                                                     individualMovie.original_title
                                                 }
                                                 onClick={() => {
-                                                    setMovieSelected(true)
-                                                    setMovieId(individualMovie.id)
+                                                    setMovieSelected(true);
+                                                    setMovieId(
+                                                        individualMovie.id
+                                                    );
                                                 }}
                                             />
+                                        </Link>
                                     </div>
                                 </div>
-   
-   );
-})}
+                            );
+                        })}
                     </div>
                 )}
             </div>
-            {movieSelected ? <MovieDetails movieId={movieId} handleSelect={props.handleSelect}/>: null}
-
+            <div id="movie-detail">
+                {movieSelected ? (
+                    <MovieDetails
+                        movieId={movieId}
+                        handleSelect={props.handleSelect}
+                    />
+                ) : null}
+            </div>
         </>
     );
 };

@@ -9,7 +9,7 @@ const PredictedLists = ({ predictedLists, handleDelete }) => {
     });
 
     return (
-        <div className="prediction-wrapper">
+        <div className="prediction-wrapper wrapper">
             {predictedLists.map((lists) => {
                 return (
                     <div key={lists.key} className="prediction-container">
