@@ -6,7 +6,7 @@ const MovieSearch = (props) => {
     const [numOfPages, setNumOfPages] = useState([]);
 
     const apiKey = "a95c3731bb8d542ff3503355315d717a";
-    const searchUrl = "https://api.themoviedb.org/3/discover/movie/?";
+    const searchUrl = "https://api.themoviedb.org/3/discover/movie";
     const lessDate = "release_date.lte";
     const greatDate = "release_date.gte";
 
@@ -80,7 +80,7 @@ const MovieSearch = (props) => {
                     </div>
                 ) : null}
 
-                <SearchedMovies movies={movieObj} apiKey={apiKey} urlEndpoint={'https://api.themoviedb.org/3/movie/'}/>
+                <SearchedMovies movies={movieObj} apiKey={apiKey} urlEndpoint={'https://api.themoviedb.org/3/movie'}/>
             </div>
         </div>
     );
