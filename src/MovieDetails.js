@@ -4,10 +4,10 @@ import firebase from "./firebase";
 const MovieDetails = (props) => {
     const [movie, setMovie] = useState([]);
 
-    const apiKey = "a95c3731bb8d542ff3503355315d717a";
-    const searchUrl = `https://api.themoviedb.org/3/movie/${props.match.params.movieId}`;
     
     useEffect(() => {
+        const apiKey = "a95c3731bb8d542ff3503355315d717a";
+        const searchUrl = `https://api.themoviedb.org/3/movie/${props.match.params.movieId}`;
         const url = new URL(searchUrl);
         url.search = new URLSearchParams({
             api_key: apiKey,

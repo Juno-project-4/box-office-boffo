@@ -10,11 +10,11 @@ const MovieSearch = (props) => {
     const lessDate = "release_date.lte";
     const greatDate = "release_date.gte";
 
-    const numArray = [];
     
     const lessYear = `${props.year}-09-04`;
     const greatYear = `${props.year}-05-01`;
     useEffect(() => {
+        const numArray = [];
         const url = new URL(searchUrl);
         url.search = new URLSearchParams({
             api_key: apiKey,

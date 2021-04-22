@@ -33,11 +33,10 @@ const FirebaseLists = () => {
                     );
                     // Updating the list of selected movies
                     setList(filteredNewState);
-                    return;
                 } else {
                     setList(copyNewState);
-                    return;
                 }
+                return;
             });
         });
     }, []);
