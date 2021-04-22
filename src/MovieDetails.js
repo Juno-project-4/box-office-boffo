@@ -42,7 +42,7 @@ const MovieDetails = (props) => {
                 </div>
                 <div className="movie-poster">
                     <img
-                        src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                         alt={`Poster for ${movie.original_title}`}
                     />
                 </div>
