@@ -36,9 +36,7 @@ const SearchedMovies = (props) => {
                                                 }
                                                 onClick={() => {
                                                     setMovieSelected(true);
-                                                    setMovieId(
-                                                        individualMovie.id
-                                                    );
+                                                    setMovieId(individualMovie.id);
                                                 }}
                                             />
                                         </Link>
