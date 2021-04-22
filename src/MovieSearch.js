@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import SearchedMovies from "./SearchedMovies";
 
-
-
 const MovieSearch = (props) => {
     const [movieObj, setMovieObj] = useState([]);
     const [numOfPages, setNumOfPages] = useState([]);
@@ -12,7 +10,6 @@ const MovieSearch = (props) => {
     const lessDate = "release_date.lte";
     const greatDate = "release_date.gte";
 
-    
     const lessYear = `${props.year}-09-04`;
     const greatYear = `${props.year}-05-01`;
     useEffect(() => {
@@ -37,31 +34,31 @@ const MovieSearch = (props) => {
                 }
                 setNumOfPages(numArray);
             });
-        }, [lessYear, greatYear]);
-        
-            const handleClick = (pageNum) => {
-                const url = new URL(searchUrl);
-                url.search = new URLSearchParams({
-                    api_key: apiKey,
-                    [lessDate]: lessYear,
-                    [greatDate]: greatYear,
-                    page: pageNum,
+    }, [lessYear, greatYear]);
+
+    const handleClick = (pageNum) => {
+        const url = new URL(searchUrl);
+        url.search = new URLSearchParams({
+            api_key: apiKey,
+            [lessDate]: lessYear,
+            [greatDate]: greatYear,
+            page: pageNum,
+        });
+        fetch(url)
+            .then((res) => {
+                return res.json();
+            })
+            .then((jsonResponse) => {
+                const newArray = [];
+                jsonResponse.results.filter((movies) => {
+                    if (movies.poster_path !== null) {
+                        newArray.push(movies);
+                    }
+                    return newArray;
                 });
-                fetch(url)
-                    .then((res) => {
-                        return res.json();
-                    })
-                    .then((jsonResponse) => {
-                        const newArray = [];
-                        jsonResponse.results.filter((movies) => {
-                            if (movies.poster_path !== null) {
-                                newArray.push(movies);
-                            }
-                            return newArray;
-                        });
-                        setMovieObj(newArray);
-                    });
-            };
+                setMovieObj(newArray);
+            });
+    };
 
     return (
         <div>
@@ -82,8 +79,11 @@ const MovieSearch = (props) => {
                     </div>
                 ) : null}
 
-                <SearchedMovies movies={movieObj} apiKey={apiKey} handleSelect={props.handleSelect}/>
-                
+                <SearchedMovies
+                    movies={movieObj}
+                    apiKey={apiKey}
+                    handleSelect={props.handleSelect}
+                />
             </div>
         </div>
     );
