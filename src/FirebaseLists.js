@@ -4,7 +4,7 @@ import firebase from "./firebase.js";
 
 import SelectedList from "./SelectedList";
 
-const FirebaseLists = () => {
+const FirebaseLists = ({handleSelect}) => {
     // Updating the list movies the user want to add to the prediction list
     const [list, setList] = useState([]);
 
@@ -51,6 +51,8 @@ const FirebaseLists = () => {
 
     // "Save the list" button function
     const handleSave = () => {
+        handleSelect();
+        
         // Toggle the status of  "Save the list" button
         const dbRef = firebase.database().ref("prediction").push();
         dbRef.set(list);
@@ -61,10 +63,12 @@ const FirebaseLists = () => {
 
     return (
         <section className="movie-lists-container">
+            
             <SelectedList
                 list={list}
                 handleRemove={handleRemove}
                 handleSave={handleSave}
+
             />
         </section>
     );

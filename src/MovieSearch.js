@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import SearchedMovies from "./SearchedMovies";
 
+
+
 const MovieSearch = (props) => {
     const [movieObj, setMovieObj] = useState([]);
     const [numOfPages, setNumOfPages] = useState([]);
@@ -80,7 +82,8 @@ const MovieSearch = (props) => {
                     </div>
                 ) : null}
 
-                <SearchedMovies movies={movieObj} apiKey={apiKey}/>
+                <SearchedMovies movies={movieObj} apiKey={apiKey} handleSelect={props.handleSelect}/>
+                
             </div>
         </div>
     );

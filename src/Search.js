@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import MovieSearch from "./MovieSearch";
+import FirebaseLists from "./FirebaseLists";
 
 function Search() {
     //this use state gets the year that is being populated in the dorpdown menu
@@ -13,12 +14,11 @@ function Search() {
         setUserYear(e.target.value);
     };
 
-    useEffect(() => {
-        if(userYear !== "placeHolder") {
-            setYearSelected(true)
-        } 
-       
-       
+    const handleSelect = () => {
+        setYearSelected(!yearSelected)
+    }
+
+    useEffect(() => { 
         //CREDIT THIS SOURCE https://renatello.com/javascript-array-of-years/
         const max = new Date().getFullYear();
         //change the number to display more or less years
@@ -29,7 +29,7 @@ function Search() {
             years.push(i.toString());
             setYear(years);
         }
-    }, [userYear]);
+    }, []);
 
     return (
         <section className="search-container">
@@ -38,8 +38,8 @@ function Search() {
                 summer movie pools by predicting the list of top 10 grossing
                 movies for a particular year!
             </h2>
-            <div className={yearSelected ? "hidden" : "wrapper"}>
-                <form>
+            <div>
+                <form className={yearSelected ? "hidden" : "wrapper"}>
                     <label htmlFor="yearDropDown">Pick the Year:</label>
                     <select
                         name="yearDropDown"
@@ -60,8 +60,10 @@ function Search() {
                         })}
                     </select>
                 </form>
+                
             </div>
-            <MovieSearch year={userYear} />
+            <MovieSearch year={userYear} handleSelect={handleSelect}/>
+            <FirebaseLists handleSelect={handleSelect}/>
         </section>
     );
 }

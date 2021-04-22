@@ -1,8 +1,13 @@
-import FirebaseLists from "./FirebaseLists";
+import { useState } from "react";
 
 import { Link } from "react-router-dom";
+import MovieDetails from "./MovieDetails";
 
 const SearchedMovies = (props) => {
+    
+    const [movieSelected, setMovieSelected] = useState(false);
+    const [movieId, setMovieId] = useState('');
+
     return (
         <>
             <div className="search-container">
@@ -20,25 +25,27 @@ const SearchedMovies = (props) => {
                                     className="movie-container"
                                 >
                                     <div>
-                                        <Link
-                                            to={`/movie/${individualMovie.id}`}
-                                            aria-label="Go to the movie detail"
-                                        >
-                                            <img
+
+                                        <img
                                                 src={`https://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
                                                 alt={
                                                     individualMovie.original_title
                                                 }
+                                                onClick={() => {
+                                                    setMovieSelected(true)
+                                                    setMovieId(individualMovie.id)
+                                                }}
                                             />
-                                        </Link>
                                     </div>
                                 </div>
-                            );
-                        })}
+   
+   );
+})}
                     </div>
                 )}
             </div>
-            <FirebaseLists />
+            {movieSelected ? <MovieDetails movieId={movieId} handleSelect={props.handleSelect}/>: null}
+
         </>
     );
 };
