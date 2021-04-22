@@ -277,13 +277,22 @@ h4 {
     padding: 7px 0;
 }
 
-.searched-movies-list li,
-.prediction-list li {
+.searched-movies-list li {
     display: flex;
     justify-content: space-between;
     padding: 5px 0;
 }
 
+.prediction-list li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.prediction-list button {
+    margin: 0 30px;
+}
 /*----STYLING FOR SEARCH COMPONENT */
 
 form {
