@@ -10,8 +10,6 @@ const MovieSearch = (props) => {
     const lessDate = "release_date.lte";
     const greatDate = "release_date.gte";
 
-    
-    
     const numArray = [];
     
     useEffect(() => {
@@ -37,30 +35,30 @@ const MovieSearch = (props) => {
                 }
                 setNumOfPages(numArray);
             });
-    }, [props.year]);
-
-    const handleClick = (pageNum) => {
-        url.search = new URLSearchParams({
-            api_key: apiKey,
-            [lessDate]: lessYear,
-            [greatDate]: greatYear,
-            page: pageNum,
-        });
-        fetch(url)
-            .then((res) => {
-                return res.json();
-            })
-            .then((jsonResponse) => {
-                const newArray = [];
-                jsonResponse.results.filter((movies) => {
-                    if (movies.poster_path !== null) {
-                        newArray.push(movies);
-                    }
-                    return newArray;
+        }, [props.year]);
+        
+            const handleClick = (pageNum) => {
+                url.search = new URLSearchParams({
+                    api_key: apiKey,
+                    [lessDate]: lessYear,
+                    [greatDate]: greatYear,
+                    page: pageNum,
                 });
-                setMovieObj(newArray);
-            });
-    };
+                fetch(url)
+                    .then((res) => {
+                        return res.json();
+                    })
+                    .then((jsonResponse) => {
+                        const newArray = [];
+                        jsonResponse.results.filter((movies) => {
+                            if (movies.poster_path !== null) {
+                                newArray.push(movies);
+                            }
+                            return newArray;
+                        });
+                        setMovieObj(newArray);
+                    });
+            };
 
     return (
         <div>
