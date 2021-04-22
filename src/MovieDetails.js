@@ -20,7 +20,7 @@ const MovieDetails = (props) => {
             .then((jsonResponse) => {
                 setMovie(jsonResponse);
             });
-    }, []);
+    }, [props.match.params.movieId]);
 
     const selectMovie = (title) => {
         const dbRef = firebase.database().ref();
