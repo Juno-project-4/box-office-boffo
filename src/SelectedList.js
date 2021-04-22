@@ -24,6 +24,7 @@ const SelectedList = ({ list, handleRemove, handleSave }) => {
                 newState.push({
                     key: key,
                     list: data[key],
+                    
                 });
             }
             // Updating the list of final predicted movies

@@ -10,14 +10,14 @@ const MovieSearch = (props) => {
     const lessDate = "release_date.lte";
     const greatDate = "release_date.gte";
 
-    //these will need to have the year replaced by a prop passed into this component that contains the year selected by the user
-    const lessYear = `${props.year}-09-04`;
-    const greatYear = `${props.year}-05-01`;
-
-    const url = new URL(searchUrl);
-
+    
+    
     const numArray = [];
+    
     useEffect(() => {
+        const url = new URL(searchUrl);
+        const lessYear = `${props.year}-09-04`;
+        const greatYear = `${props.year}-05-01`;
         url.search = new URLSearchParams({
             api_key: apiKey,
             [lessDate]: lessYear,
@@ -56,6 +56,7 @@ const MovieSearch = (props) => {
                     if (movies.poster_path !== null) {
                         newArray.push(movies);
                     }
+                    return newArray;
                 });
                 setMovieObj(newArray);
             });
