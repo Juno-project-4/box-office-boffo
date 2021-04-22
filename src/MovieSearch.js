@@ -6,18 +6,16 @@ const MovieSearch = (props) => {
     const [numOfPages, setNumOfPages] = useState([]);
 
     const apiKey = "a95c3731bb8d542ff3503355315d717a";
-    const searchUrl = "https://api.themoviedb.org/3/discover/movie/?";
+    const searchUrl = "https://api.themoviedb.org/3/discover/movie";
     const lessDate = "release_date.lte";
     const greatDate = "release_date.gte";
 
-    //these will need to have the year replaced by a prop passed into this component that contains the year selected by the user
+    
     const lessYear = `${props.year}-09-04`;
     const greatYear = `${props.year}-05-01`;
-
-    const url = new URL(searchUrl);
-
-    const numArray = [];
     useEffect(() => {
+        const numArray = [];
+        const url = new URL(searchUrl);
         url.search = new URLSearchParams({
             api_key: apiKey,
             [lessDate]: lessYear,
@@ -37,29 +35,31 @@ const MovieSearch = (props) => {
                 }
                 setNumOfPages(numArray);
             });
-    }, [props.year]);
-
-    const handleClick = (pageNum) => {
-        url.search = new URLSearchParams({
-            api_key: apiKey,
-            [lessDate]: lessYear,
-            [greatDate]: greatYear,
-            page: pageNum,
-        });
-        fetch(url)
-            .then((res) => {
-                return res.json();
-            })
-            .then((jsonResponse) => {
-                const newArray = [];
-                jsonResponse.results.filter((movies) => {
-                    if (movies.poster_path !== null) {
-                        newArray.push(movies);
-                    }
+        }, [lessYear, greatYear]);
+        
+            const handleClick = (pageNum) => {
+                const url = new URL(searchUrl);
+                url.search = new URLSearchParams({
+                    api_key: apiKey,
+                    [lessDate]: lessYear,
+                    [greatDate]: greatYear,
+                    page: pageNum,
                 });
-                setMovieObj(newArray);
-            });
-    };
+                fetch(url)
+                    .then((res) => {
+                        return res.json();
+                    })
+                    .then((jsonResponse) => {
+                        const newArray = [];
+                        jsonResponse.results.filter((movies) => {
+                            if (movies.poster_path !== null) {
+                                newArray.push(movies);
+                            }
+                            return newArray;
+                        });
+                        setMovieObj(newArray);
+                    });
+            };
 
     return (
         <div>
@@ -80,7 +80,7 @@ const MovieSearch = (props) => {
                     </div>
                 ) : null}
 
-                <SearchedMovies movies={movieObj} apiKey={apiKey} urlEndpoint={'https://api.themoviedb.org/3/movie/'}/>
+                <SearchedMovies movies={movieObj} apiKey={apiKey} urlEndpoint={'https://api.themoviedb.org/3/movie'}/>
             </div>
         </div>
     );
