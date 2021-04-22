@@ -1,4 +1,4 @@
-const PredictedLists = ({ predictedLists, handleDelete, sum }) => {
+const PredictedLists = ({ predictedLists, handleDelete }) => {
     predictedLists.map((lists) => {
         lists.list.sort((mov1, mov2) => {
             return mov2.movie.revenue - mov1.movie.revenue;
@@ -15,7 +15,7 @@ const PredictedLists = ({ predictedLists, handleDelete, sum }) => {
                             {lists.list.map((mov) => {
                                 return <li key={mov.key}>{mov.movie.title}</li>;
                             })}
-                            <p>Total revenue of selected movies: {sum}</p>
+
                         </ol>
                         <button onClick={() => handleDelete(lists.key)}>
                             Delete List!
