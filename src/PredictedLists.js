@@ -3,6 +3,7 @@ const PredictedLists = ({ predictedLists, handleDelete }) => {
         lists.list.sort((mov1, mov2) => {
             return mov2.movie.revenue - mov1.movie.revenue;
         });
+        return;
     });
 
     return (
