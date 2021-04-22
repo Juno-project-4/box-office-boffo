@@ -25,7 +25,7 @@ const SearchedMovies = (props) => {
                                             aria-label="Go to the movie detail"
                                         >
                                             <img
-                                                src={`http://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
+                                                src={`https://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
                                                 alt={
                                                     individualMovie.original_title
                                                 }
