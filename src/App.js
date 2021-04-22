@@ -10,10 +10,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 function App() {
     return (
         <Router>
-            <div className="main-container">
+            <div>
                 <Header />
                 <Route exact path="/" component={Search} />
-                {/* <Search /> */}
                 <Route exact path="/movie/:movieId" component={MovieDetails} />
                 <Footer />
             </div>

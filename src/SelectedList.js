@@ -1,21 +1,18 @@
-import PredictedLists from './PredictedLists'
+import PredictedLists from "./PredictedLists";
 import { useEffect, useState } from "react";
 import firebase from "./firebase.js";
 
-
 const SelectedList = ({ list, handleRemove, handleSave }) => {
-
     const [predictedLists, setPredictedLists] = useState([]);
     const [sum, setSum] = useState();
-    
+
     const totalRevenue = () => {
         let temp = 0;
-        list.forEach( (movie) => {
-            temp += movie.movie.revenue
+        list.forEach((movie) => {
+            temp += movie.movie.revenue;
         });
-        setSum(temp)
-    }
-
+        setSum(temp);
+    };
 
     useEffect(() => {
         // Reference the prediction object from Firebase
@@ -43,7 +40,7 @@ const SelectedList = ({ list, handleRemove, handleSave }) => {
             dbRef.child(key).remove();
         }
     };
-    
+
     return (
         <div>
             {list.length !== 0 ? (
@@ -63,10 +60,14 @@ const SelectedList = ({ list, handleRemove, handleSave }) => {
                             );
                         })}
                     </ol>
-                    <button onClick={() => {
-                        handleSave();
-                        totalRevenue();
-                        }}>Save the list!</button>
+                    <button
+                        onClick={() => {
+                            handleSave();
+                            totalRevenue();
+                        }}
+                    >
+                        Save the list!
+                    </button>
                 </div>
             ) : null}
             <PredictedLists

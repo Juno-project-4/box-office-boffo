@@ -1,7 +1,4 @@
 const PredictedLists = ({ predictedLists, handleDelete, sum }) => {
-    
-    
-    
     return (
         <div className="prediction-wrapper">
             {predictedLists.map((lists) => {

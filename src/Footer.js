@@ -11,14 +11,27 @@ const Footer = () => {
                 </a>
             </p>
             <p>
-                Copyright &copy; 2021 by Kevin Turner &amp;{" "}
+                Copyright &copy; 2021 by{" "}
+                <a
+                    href="https://github.com/TenEighths"
+                    aria-label="Go to Kevin Turner's GitHub"
+                >
+                    Kevin Turner
+                </a>{" "}
+                &amp;{" "}
                 <a
                     href="https://github.com/christiesunnie"
                     aria-label="Go to Christie Tran's GitHub"
                 >
                     Chritie Tran{" "}
                 </a>{" "}
-                &amp; Matthew Whitely
+                &amp;{" "}
+                <a
+                    href="https://github.com/Matthew-Whitely"
+                    aria-label="Go to Matthew Whitely's GitHub"
+                >
+                    Matthew Whitely
+                </a>{" "}
             </p>
         </footer>
     );
