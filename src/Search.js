@@ -27,15 +27,20 @@ function Search() {
 
     return (
         <section className="search-container">
-            <div className="wrapper option-container">
-                <form className="search-form">
+            <h2 className="app-description">
+                Summer Movies is an app that lets users compete with friends in
+                summer movie pools by predicting the list of top 10 grossing
+                movies for a particular year!
+            </h2>
+            <div className="wrapper">
+                <form>
                     <label htmlFor="yearDropDown">Pick the Year:</label>
                     <select
                         name="yearDropDown"
                         id="yearDropdown"
                         value={userYear}
                         onChange={handleUserChoice}
-                        className="search-drop-down"
+                        className="btn-select"
                     >
                         <option value="placeHolder" disabled>
                             Year

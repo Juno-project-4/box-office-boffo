@@ -1,7 +1,4 @@
 const PredictedLists = ({ predictedLists, handleDelete, sum }) => {
-    
-    
-    
     return (
         <div className="prediction-wrapper">
             {predictedLists.map((lists) => {
@@ -10,11 +7,7 @@ const PredictedLists = ({ predictedLists, handleDelete, sum }) => {
                         <h2>Summer Movie List</h2>
                         <ol>
                             {lists.list.map((mov) => {
-                                return (
-                                    <li key={mov.key}>
-                                        <p>{mov.movie.title}</p>
-                                    </li>
-                                );
+                                return <li key={mov.key}>{mov.movie.title}</li>;
                             })}
                             <p>Total revenue of selected movies: {sum}</p>
                         </ol>

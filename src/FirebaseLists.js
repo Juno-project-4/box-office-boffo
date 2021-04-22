@@ -60,7 +60,7 @@ const FirebaseLists = () => {
     };
 
     return (
-        <section className="bg-color">
+        <section className="movie-lists-container">
             <SelectedList
                 list={list}
                 handleRemove={handleRemove}
