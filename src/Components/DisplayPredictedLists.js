@@ -1,4 +1,4 @@
-const PredictedLists = ({ predictedLists, handleDelete }) => {
+const DisplayPredictedLists = ({ predictedLists, handleDelete }) => {
     predictedLists.map((lists) => {
         lists.list.sort((mov1, mov2) => {
             return mov2.movie.revenue - mov1.movie.revenue;
@@ -26,4 +26,4 @@ const PredictedLists = ({ predictedLists, handleDelete }) => {
         </div>
     );
 };
-export default PredictedLists;
+export default DisplayPredictedLists;

@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import { Link } from "react-scroll";
-import MovieDetails from "./MovieDetails";
+import DisplayMovieDetails from "./DisplayMovieDetails";
 
-const SearchedMovies = (props) => {
+const DisplayAllMovies = (props) => {
     const [movieSelected, setMovieSelected] = useState(false);
     const [movieId, setMovieId] = useState("");
 
@@ -51,7 +51,7 @@ const SearchedMovies = (props) => {
             </div>
             <div id="movie-detail">
                 {movieSelected ? (
-                    <MovieDetails
+                    <DisplayMovieDetails
                         movieId={movieId}
                         handleSelect={props.handleSelect}
                     />
@@ -61,4 +61,4 @@ const SearchedMovies = (props) => {
     );
 };
 
-export default SearchedMovies;
+export default DisplayAllMovies;

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import MovieSearch from "./MovieSearch";
-import FirebaseLists from "./FirebaseLists";
+import DisplayYears from "./DisplayYears";
+import FirebaseListsData from "./FirebaseListsData";
 
-function Search() {
+function SearchFormSection() {
     //this use state gets the year that is being populated in the dorpdown menu
     const [year, setYear] = useState([]);
     //user selceted year. this info is also passed to the api call
@@ -15,10 +15,10 @@ function Search() {
     };
 
     const handleSelect = () => {
-        setYearSelected(!yearSelected)
-    }
+        setYearSelected(!yearSelected);
+    };
 
-    useEffect(() => { 
+    useEffect(() => {
         //CREDIT THIS SOURCE https://renatello.com/javascript-array-of-years/
         const max = new Date().getFullYear();
         //change the number to display more or less years
@@ -60,12 +60,11 @@ function Search() {
                         })}
                     </select>
                 </form>
-                
             </div>
-            <MovieSearch year={userYear} handleSelect={handleSelect}/>
-            <FirebaseLists handleSelect={handleSelect}/>
+            <DisplayYears year={userYear} handleSelect={handleSelect} />
+            <FirebaseListsData handleSelect={handleSelect} />
         </section>
     );
 }
 
-export default Search;
+export default SearchFormSection;

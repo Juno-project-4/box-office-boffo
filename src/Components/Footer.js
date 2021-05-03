@@ -23,7 +23,7 @@ const Footer = () => {
                     href="https://github.com/christiesunnie"
                     aria-label="Go to Christie Tran's GitHub"
                 >
-                    Chritie Tran{" "}
+                    Christie Tran{" "}
                 </a>{" "}
                 &amp;{" "}
                 <a

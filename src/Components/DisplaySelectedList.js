@@ -1,8 +1,8 @@
-import PredictedLists from "./PredictedLists";
+import DisplayPredictedLists from "./DisplayPredictedLists";
 import { useEffect, useState } from "react";
-import firebase from "./firebase.js";
+import firebase from "../firebase.js";
 
-const SelectedList = ({ list, handleRemove, handleSave }) => {
+const DisplaySelectedList = ({ list, handleRemove, handleSave }) => {
     const [predictedLists, setPredictedLists] = useState([]);
 
     useEffect(() => {
@@ -82,7 +82,7 @@ const SelectedList = ({ list, handleRemove, handleSave }) => {
                     </button>
                 </div>
             ) : null}
-            <PredictedLists
+            <DisplayPredictedLists
                 predictedLists={predictedLists}
                 handleDelete={handleDelete}
             />
@@ -90,4 +90,4 @@ const SelectedList = ({ list, handleRemove, handleSave }) => {
     );
 };
 
-export default SelectedList;
+export default DisplaySelectedList;
