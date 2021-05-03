@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import SearchedMovies from "./SearchedMovies";
+import SearchedMovies from "../SearchedMovies";
 
-const MovieSearch = (props) => {
+const DisplayAllMovies = (props) => {
     const [movieObj, setMovieObj] = useState([]);
     const [numOfPages, setNumOfPages] = useState([]);
 
@@ -88,4 +88,4 @@ const MovieSearch = (props) => {
         </div>
     );
 };
-export default MovieSearch;
+export default DisplayAllMovies;

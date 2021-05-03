@@ -2,7 +2,7 @@ import "./App.css";
 
 import Header from "./Header";
 import Footer from "./Footer";
-import Search from "./Search";
+import SearchFormSection from "./SearchFormSection";
 
 import ScrollUpButton from "react-scroll-up-button";
 
@@ -10,7 +10,7 @@ function App() {
     return (
         <div className="main-container">
             <Header />
-            <Search />
+            <SearchFormSection />
             <Footer />
             <ScrollUpButton
                 style={{

@@ -1,4 +1,4 @@
-import PredictedLists from "./PredictedLists";
+import PredictedLists from "./Components/PredictedLists";
 import { useEffect, useState } from "react";
 import firebase from "./firebase.js";
 
