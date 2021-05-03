@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import firebase from "../firebase";
 
-const MovieDetails = (props) => {
+const DisplayMovieDetails = (props) => {
     // State to update the movie deatil
     const [movie, setMovie] = useState([]);
 
@@ -54,4 +54,4 @@ const MovieDetails = (props) => {
     );
 };
 
-export default MovieDetails;
+export default DisplayMovieDetails;

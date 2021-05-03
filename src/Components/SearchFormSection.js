@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import DisplayAllMovies from "./Components/DisplayAllMovies";
-import FirebaseListsData from "./Components/FirebaseListsData";
+import DisplayYears from "./DisplayYears";
+import FirebaseListsData from "./FirebaseListsData";
 
 function SearchFormSection() {
     //this use state gets the year that is being populated in the dorpdown menu
@@ -61,7 +61,7 @@ function SearchFormSection() {
                     </select>
                 </form>
             </div>
-            <DisplayAllMovies year={userYear} handleSelect={handleSelect} />
+            <DisplayYears year={userYear} handleSelect={handleSelect} />
             <FirebaseListsData handleSelect={handleSelect} />
         </section>
     );

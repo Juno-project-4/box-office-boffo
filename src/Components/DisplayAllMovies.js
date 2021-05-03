@@ -1,91 +1,64 @@
-import { useState, useEffect } from "react";
-import SearchedMovies from "../SearchedMovies";
+import { useState } from "react";
+
+import { Link } from "react-scroll";
+import DisplayMovieDetails from "./DisplayMovieDetails";
 
 const DisplayAllMovies = (props) => {
-    const [movieObj, setMovieObj] = useState([]);
-    const [numOfPages, setNumOfPages] = useState([]);
-
-    const apiKey = "a95c3731bb8d542ff3503355315d717a";
-    const searchUrl = "https://api.themoviedb.org/3/discover/movie";
-    const lessDate = "release_date.lte";
-    const greatDate = "release_date.gte";
-
-    const lessYear = `${props.year}-09-04`;
-    const greatYear = `${props.year}-05-01`;
-    useEffect(() => {
-        const numArray = [];
-        const url = new URL(searchUrl);
-        url.search = new URLSearchParams({
-            api_key: apiKey,
-            [lessDate]: lessYear,
-            [greatDate]: greatYear,
-            include_adult: "false",
-            include_video: "false",
-        });
-
-        fetch(url)
-            .then((res) => {
-                return res.json();
-            })
-            .then((jsonResponse) => {
-                setMovieObj(jsonResponse.results);
-                for (let i = 1; i < 21; i++) {
-                    numArray.push(i);
-                }
-                setNumOfPages(numArray);
-            });
-    }, [lessYear, greatYear]);
-
-    const handleClick = (pageNum) => {
-        const url = new URL(searchUrl);
-        url.search = new URLSearchParams({
-            api_key: apiKey,
-            [lessDate]: lessYear,
-            [greatDate]: greatYear,
-            page: pageNum,
-        });
-        fetch(url)
-            .then((res) => {
-                return res.json();
-            })
-            .then((jsonResponse) => {
-                const newArray = [];
-                jsonResponse.results.filter((movies) => {
-                    if (movies.poster_path !== null) {
-                        newArray.push(movies);
-                    }
-                    return newArray;
-                });
-                setMovieObj(newArray);
-            });
-    };
+    const [movieSelected, setMovieSelected] = useState(false);
+    const [movieId, setMovieId] = useState("");
 
     return (
-        <div>
-            <div className="wrapper">
-                {movieObj.length !== 0 ? (
-                    <div className="page-container">
-                        {numOfPages.map((page) => {
+        <>
+            <div className="search-container">
+                {props.movies.length === 0 ? (
+                    <h2 className="search-message">
+                        Please select a specific year to see the list of summer
+                        movies!
+                    </h2>
+                ) : (
+                    <div className="searched-movies-list">
+                        {props.movies.map((individualMovie) => {
                             return (
-                                <button
-                                    key={page}
-                                    onClick={() => handleClick(page)}
-                                    className="page-btn"
+                                <div
+                                    key={individualMovie.id}
+                                    className="movie-container"
                                 >
-                                    {page}
-                                </button>
+                                    <div>
+                                        <Link
+                                            to="movie-detail"
+                                            spy={true}
+                                            smooth={true}
+                                        >
+                                            <img
+                                                src={`https://image.tmdb.org/t/p/w500/${individualMovie.poster_path}`}
+                                                alt={
+                                                    individualMovie.original_title
+                                                }
+                                                onClick={() => {
+                                                    setMovieSelected(true);
+                                                    setMovieId(
+                                                        individualMovie.id
+                                                    );
+                                                }}
+                                            />
+                                        </Link>
+                                    </div>
+                                </div>
                             );
                         })}
                     </div>
-                ) : null}
-
-                <SearchedMovies
-                    movies={movieObj}
-                    apiKey={apiKey}
-                    handleSelect={props.handleSelect}
-                />
+                )}
             </div>
-        </div>
+            <div id="movie-detail">
+                {movieSelected ? (
+                    <DisplayMovieDetails
+                        movieId={movieId}
+                        handleSelect={props.handleSelect}
+                    />
+                ) : null}
+            </div>
+        </>
     );
 };
+
 export default DisplayAllMovies;

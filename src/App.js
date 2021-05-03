@@ -1,8 +1,8 @@
 import "./App.css";
 
-import Header from "./Header";
-import Footer from "./Footer";
-import SearchFormSection from "./SearchFormSection";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import SearchFormSection from "./Components/SearchFormSection";
 
 import ScrollUpButton from "react-scroll-up-button";
 

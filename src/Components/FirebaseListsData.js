@@ -1,8 +1,8 @@
-import "./App.css";
+import "../App.css";
 import { useEffect, useState } from "react";
-import firebase from "../firebase.js";
+import firebase from "../firebase";
 
-import SelectedList from "../SelectedList";
+import DisplaySelectedList from "./DisplaySelectedList";
 
 const FirebaseListsData = ({ handleSelect }) => {
     // Updating the list movies the user want to add to the prediction list
@@ -63,7 +63,7 @@ const FirebaseListsData = ({ handleSelect }) => {
 
     return (
         <section className="movie-lists-container">
-            <SelectedList
+            <DisplaySelectedList
                 list={list}
                 handleRemove={handleRemove}
                 handleSave={handleSave}
